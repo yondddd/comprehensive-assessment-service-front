@@ -14,6 +14,7 @@ import routeSettings from "@/config/route"
 export const useUserStore = defineStore("user", () => {
   const token = ref<string>(getToken() || "")
   const roles = ref<string[]>([])
+  const orgName = ref<string>("")
   const username = ref<string>("")
   const mobile = ref<string>("")
   const email = ref<string>("")
@@ -35,6 +36,7 @@ export const useUserStore = defineStore("user", () => {
   /** 获取用户详情 */
   const getInfo = async () => {
     const { data } = await getUserInfoApi()
+    orgName.value = data.orgName
     username.value = data.username
     mobile.value = data.mobile
     email.value = data.email
@@ -76,7 +78,7 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  return { token, roles, username, mobile, email, setRoles, login, getInfo, changeRoles, logout, resetToken }
+  return { token, roles, orgName, username, mobile, email, setRoles, login, getInfo, changeRoles, logout, resetToken }
 })
 
 /** 在 setup 外使用 */
