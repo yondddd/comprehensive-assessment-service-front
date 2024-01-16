@@ -7,6 +7,14 @@ import { User, Lock, Key, Picture, Loading } from "@element-plus/icons-vue"
 import { getLoginCodeApi } from "@/api/login"
 import { type LoginRequestData } from "@/api/login/types/login"
 import ThemeSwitch from "@/components/ThemeSwitch/index.vue"
+import { useTheme } from "@/hooks/useTheme"
+
+const getLogoSource = () => {
+  const { activeThemeName } = useTheme()
+  return activeThemeName.value === "normal"
+    ? "src/assets/layouts/school-badge-black.png"
+    : "src/assets/layouts/school-badge-white.png"
+}
 
 const router = useRouter()
 
@@ -74,7 +82,7 @@ createCode()
     <ThemeSwitch class="theme-switch" />
     <div class="login-card">
       <div class="title">
-        <img src="@/assets/layouts/logo-text-2.png" />
+        <img :src="getLogoSource()" />
       </div>
       <div class="content">
         <el-form ref="loginFormRef" :model="loginFormData" :rules="loginFormRules" @keyup.enter="handleLogin">
@@ -152,10 +160,11 @@ createCode()
     background-color: #fff;
     overflow: hidden;
     .title {
+      margin-top: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 150px;
+      // height: 150px;
       img {
         height: 100%;
       }

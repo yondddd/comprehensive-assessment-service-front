@@ -247,6 +247,27 @@ export const constantRoutes: RouteRecordRaw[] = [
         }
       }
     ]
+  },
+  {
+    path: "/person-center",
+    component: Layouts,
+    redirect: "/person-center/info",
+    name: "PersonCenter",
+    meta: {
+      title: "个人中心",
+      elIcon: "user",
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: "info",
+        component: () => import("@/views/personCenter/info/index.vue"),
+        name: "PersonInfo",
+        meta: {
+          title: "个人信息"
+        }
+      }
+    ]
   }
 ]
 
