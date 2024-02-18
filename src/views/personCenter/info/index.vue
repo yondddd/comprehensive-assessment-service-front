@@ -13,7 +13,7 @@ const userStore = useUserStore()
       </el-descriptions-item>
       <el-descriptions-item label="学校">{{ userStore.orgName }}</el-descriptions-item>
       <el-descriptions-item label="班级信息">{{ userStore.orgName }}</el-descriptions-item>
-      <el-descriptions-item label="学/工号">{{ userStore.username }}</el-descriptions-item>
+      <el-descriptions-item label="工号">{{ userStore.jobNumber }}</el-descriptions-item>
       <el-descriptions-item label="手机">{{ userStore.mobile }}</el-descriptions-item>
       <el-descriptions-item label="邮箱">{{ userStore.email }}</el-descriptions-item>
     </el-descriptions>
