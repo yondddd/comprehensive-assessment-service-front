@@ -14,7 +14,7 @@ import { usePagination } from "@/hooks/usePagination"
 
 defineOptions({
   // 命名当前组件
-  name: "class"
+  name: "clazz"
 })
 
 const loading = ref<boolean>(false)
