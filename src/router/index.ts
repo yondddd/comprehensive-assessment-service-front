@@ -282,7 +282,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: "info",
-        component: () => import("@/views/class/info/index.vue"),
+        component: () => import("@/views/clazz/info/index.vue"),
         name: "classInfo",
         meta: {
           title: "班级信息"
