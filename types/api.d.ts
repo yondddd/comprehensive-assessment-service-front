@@ -4,3 +4,12 @@ interface ApiResponseData<T> {
   data: T
   message: string
 }
+
+interface ApiPageResponseData<T> {
+  code: number
+  data: T
+  message: string
+  total: number
+  pageNo: number
+  pageSize: number
+}

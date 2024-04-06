@@ -21,4 +21,5 @@ export type UserInfoResponseData = ApiResponseData<{
   orgId: number
   orgName: string
   roles: string[]
+  classInfo: string
 }>

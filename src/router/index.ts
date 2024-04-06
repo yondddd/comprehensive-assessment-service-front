@@ -61,189 +61,231 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   },
+  // {
+  //   path: "/unocss",
+  //   component: Layouts,
+  //   redirect: "/unocss/index",
+  //   children: [
+  //     {
+  //       path: "index",
+  //       component: () => import("@/views/unocss/index.vue"),
+  //       name: "UnoCSS",
+  //       meta: {
+  //         title: "UnoCSS",
+  //         svgIcon: "unocss"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/link",
+  //   meta: {
+  //     title: "外链",
+  //     svgIcon: "link"
+  //   },
+  //   children: [
+  //     {
+  //       path: "https://juejin.cn/post/7089377403717287972",
+  //       component: () => {},
+  //       name: "Link1",
+  //       meta: {
+  //         title: "中文文档"
+  //       }
+  //     },
+  //     {
+  //       path: "https://juejin.cn/column/7207659644487139387",
+  //       component: () => {},
+  //       name: "Link2",
+  //       meta: {
+  //         title: "新手教程"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/table",
+  //   component: Layouts,
+  //   redirect: "/table/element-plus",
+  //   name: "Table",
+  //   meta: {
+  //     title: "表格",
+  //     elIcon: "Grid"
+  //   },
+  //   children: [
+  //     {
+  //       path: "element-plus",
+  //       component: () => import("@/views/table/element-plus/index.vue"),
+  //       name: "ElementPlus",
+  //       meta: {
+  //         title: "Element Plus",
+  //         keepAlive: true
+  //       }
+  //     },
+  //     {
+  //       path: "vxe-table",
+  //       component: () => import("@/views/table/vxe-table/index.vue"),
+  //       name: "VxeTable",
+  //       meta: {
+  //         title: "Vxe Table",
+  //         keepAlive: true
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/menu",
+  //   component: Layouts,
+  //   redirect: "/menu/menu1",
+  //   name: "Menu",
+  //   meta: {
+  //     title: "多级路由",
+  //     svgIcon: "menu"
+  //   },
+  //   children: [
+  //     {
+  //       path: "menu1",
+  //       component: () => import("@/views/menu/menu1/index.vue"),
+  //       redirect: "/menu/menu1/menu1-1",
+  //       name: "Menu1",
+  //       meta: {
+  //         title: "menu1"
+  //       },
+  //       children: [
+  //         {
+  //           path: "menu1-1",
+  //           component: () => import("@/views/menu/menu1/menu1-1/index.vue"),
+  //           name: "Menu1-1",
+  //           meta: {
+  //             title: "menu1-1",
+  //             keepAlive: true
+  //           }
+  //         },
+  //         {
+  //           path: "menu1-2",
+  //           component: () => import("@/views/menu/menu1/menu1-2/index.vue"),
+  //           redirect: "/menu/menu1/menu1-2/menu1-2-1",
+  //           name: "Menu1-2",
+  //           meta: {
+  //             title: "menu1-2"
+  //           },
+  //           children: [
+  //             {
+  //               path: "menu1-2-1",
+  //               component: () => import("@/views/menu/menu1/menu1-2/menu1-2-1/index.vue"),
+  //               name: "Menu1-2-1",
+  //               meta: {
+  //                 title: "menu1-2-1",
+  //                 keepAlive: true
+  //               }
+  //             },
+  //             {
+  //               path: "menu1-2-2",
+  //               component: () => import("@/views/menu/menu1/menu1-2/menu1-2-2/index.vue"),
+  //               name: "Menu1-2-2",
+  //               meta: {
+  //                 title: "menu1-2-2",
+  //                 keepAlive: true
+  //               }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: "menu1-3",
+  //           component: () => import("@/views/menu/menu1/menu1-3/index.vue"),
+  //           name: "Menu1-3",
+  //           meta: {
+  //             title: "menu1-3",
+  //             keepAlive: true
+  //           }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: "menu2",
+  //       component: () => import("@/views/menu/menu2/index.vue"),
+  //       name: "Menu2",
+  //       meta: {
+  //         title: "menu2",
+  //         keepAlive: true
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/hook-demo",
+  //   component: Layouts,
+  //   redirect: "/hook-demo/use-fetch-select",
+  //   name: "HookDemo",
+  //   meta: {
+  //     title: "Hook 示例",
+  //     elIcon: "Menu",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "use-fetch-select",
+  //       component: () => import("@/views/hook-demo/use-fetch-select.vue"),
+  //       name: "UseFetchSelect",
+  //       meta: {
+  //         title: "useFetchSelect"
+  //       }
+  //     },
+  //     {
+  //       path: "use-fullscreen-loading",
+  //       component: () => import("@/views/hook-demo/use-fullscreen-loading.vue"),
+  //       name: "UseFullscreenLoading",
+  //       meta: {
+  //         title: "useFullscreenLoading"
+  //       }
+  //     },
+  //     {
+  //       path: "use-watermark",
+  //       component: () => import("@/views/hook-demo/use-watermark.vue"),
+  //       name: "UseWatermark",
+  //       meta: {
+  //         title: "useWatermark"
+  //       }
+  //     }
+  //   ]
+  // },
   {
-    path: "/unocss",
+    path: "/college",
     component: Layouts,
-    redirect: "/unocss/index",
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/unocss/index.vue"),
-        name: "UnoCSS",
-        meta: {
-          title: "UnoCSS",
-          svgIcon: "unocss"
-        }
-      }
-    ]
-  },
-  {
-    path: "/link",
+    redirect: "/college/info",
+    name: "college",
     meta: {
-      title: "外链",
-      svgIcon: "link"
-    },
-    children: [
-      {
-        path: "https://juejin.cn/post/7089377403717287972",
-        component: () => {},
-        name: "Link1",
-        meta: {
-          title: "中文文档"
-        }
-      },
-      {
-        path: "https://juejin.cn/column/7207659644487139387",
-        component: () => {},
-        name: "Link2",
-        meta: {
-          title: "新手教程"
-        }
-      }
-    ]
-  },
-  {
-    path: "/table",
-    component: Layouts,
-    redirect: "/table/element-plus",
-    name: "Table",
-    meta: {
-      title: "表格",
-      elIcon: "Grid"
-    },
-    children: [
-      {
-        path: "element-plus",
-        component: () => import("@/views/table/element-plus/index.vue"),
-        name: "ElementPlus",
-        meta: {
-          title: "Element Plus",
-          keepAlive: true
-        }
-      },
-      {
-        path: "vxe-table",
-        component: () => import("@/views/table/vxe-table/index.vue"),
-        name: "VxeTable",
-        meta: {
-          title: "Vxe Table",
-          keepAlive: true
-        }
-      }
-    ]
-  },
-  {
-    path: "/menu",
-    component: Layouts,
-    redirect: "/menu/menu1",
-    name: "Menu",
-    meta: {
-      title: "多级路由",
-      svgIcon: "menu"
-    },
-    children: [
-      {
-        path: "menu1",
-        component: () => import("@/views/menu/menu1/index.vue"),
-        redirect: "/menu/menu1/menu1-1",
-        name: "Menu1",
-        meta: {
-          title: "menu1"
-        },
-        children: [
-          {
-            path: "menu1-1",
-            component: () => import("@/views/menu/menu1/menu1-1/index.vue"),
-            name: "Menu1-1",
-            meta: {
-              title: "menu1-1",
-              keepAlive: true
-            }
-          },
-          {
-            path: "menu1-2",
-            component: () => import("@/views/menu/menu1/menu1-2/index.vue"),
-            redirect: "/menu/menu1/menu1-2/menu1-2-1",
-            name: "Menu1-2",
-            meta: {
-              title: "menu1-2"
-            },
-            children: [
-              {
-                path: "menu1-2-1",
-                component: () => import("@/views/menu/menu1/menu1-2/menu1-2-1/index.vue"),
-                name: "Menu1-2-1",
-                meta: {
-                  title: "menu1-2-1",
-                  keepAlive: true
-                }
-              },
-              {
-                path: "menu1-2-2",
-                component: () => import("@/views/menu/menu1/menu1-2/menu1-2-2/index.vue"),
-                name: "Menu1-2-2",
-                meta: {
-                  title: "menu1-2-2",
-                  keepAlive: true
-                }
-              }
-            ]
-          },
-          {
-            path: "menu1-3",
-            component: () => import("@/views/menu/menu1/menu1-3/index.vue"),
-            name: "Menu1-3",
-            meta: {
-              title: "menu1-3",
-              keepAlive: true
-            }
-          }
-        ]
-      },
-      {
-        path: "menu2",
-        component: () => import("@/views/menu/menu2/index.vue"),
-        name: "Menu2",
-        meta: {
-          title: "menu2",
-          keepAlive: true
-        }
-      }
-    ]
-  },
-  {
-    path: "/hook-demo",
-    component: Layouts,
-    redirect: "/hook-demo/use-fetch-select",
-    name: "HookDemo",
-    meta: {
-      title: "Hook 示例",
-      elIcon: "Menu",
+      title: "学院管理",
+      elIcon: "Grid",
       alwaysShow: true
     },
     children: [
       {
-        path: "use-fetch-select",
-        component: () => import("@/views/hook-demo/use-fetch-select.vue"),
-        name: "UseFetchSelect",
+        path: "info",
+        component: () => import("@/views/college/info/index.vue"),
+        name: "collegeInfo",
         meta: {
-          title: "useFetchSelect"
+          title: "学院信息"
         }
-      },
+      }
+    ]
+  },
+  {
+    path: "/class",
+    component: Layouts,
+    redirect: "/class/info",
+    name: "class",
+    meta: {
+      title: "班级管理",
+      elIcon: "Grid",
+      alwaysShow: true
+    },
+    children: [
       {
-        path: "use-fullscreen-loading",
-        component: () => import("@/views/hook-demo/use-fullscreen-loading.vue"),
-        name: "UseFullscreenLoading",
+        path: "info",
+        component: () => import("@/views/class/info/index.vue"),
+        name: "classInfo",
         meta: {
-          title: "useFullscreenLoading"
-        }
-      },
-      {
-        path: "use-watermark",
-        component: () => import("@/views/hook-demo/use-watermark.vue"),
-        name: "UseWatermark",
-        meta: {
-          title: "useWatermark"
+          title: "班级信息"
         }
       }
     ]
