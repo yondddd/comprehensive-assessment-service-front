@@ -291,13 +291,43 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/user",
+    component: Layouts,
+    redirect: "/user/student",
+    name: "Student",
+    meta: {
+      title: "用户管理",
+      elIcon: "Avatar"
+    },
+    children: [
+      {
+        path: "student",
+        component: () => import("@/views/user/student/info/index.vue"),
+        name: "Student",
+        meta: {
+          title: "学生管理",
+          keepAlive: true
+        }
+      },
+      {
+        path: "counsellor",
+        component: () => import("@/views/user/counsellor/info/index.vue"),
+        name: "Counsellor",
+        meta: {
+          title: "辅导员管理",
+          keepAlive: true
+        }
+      }
+    ]
+  },
+  {
     path: "/person-center",
     component: Layouts,
     redirect: "/person-center/info",
     name: "PersonCenter",
     meta: {
       title: "个人中心",
-      elIcon: "user",
+      elIcon: "Setting",
       alwaysShow: true
     },
     children: [
