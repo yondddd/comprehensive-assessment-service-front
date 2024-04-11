@@ -297,7 +297,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     name: "Student",
     meta: {
       title: "用户管理",
-      elIcon: "Avatar"
+      elIcon: "User"
     },
     children: [
       {
@@ -316,6 +316,107 @@ export const constantRoutes: RouteRecordRaw[] = [
         meta: {
           title: "辅导员管理",
           keepAlive: true
+        }
+      }
+    ]
+  },
+  {
+    path: "/check",
+    component: Layouts,
+    redirect: "/check/studentScore",
+    name: "check",
+    meta: {
+      title: "综合成绩",
+      elIcon: "Reading",
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: "studentScore",
+        component: () => import("@/views/check/studentScore/index.vue"),
+        name: "StudentScore",
+        meta: {
+          title: "学生成绩"
+        }
+      }
+    ]
+  },
+
+  {
+    path: "/score",
+    component: Layouts,
+    redirect: "/score/comprehensive",
+    name: "Score",
+    meta: {
+      title: "加分申请",
+      elIcon: "List",
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: "comprehensive",
+        component: () => import("@/views/score/comprehensive/index.vue"),
+        name: "Comprehensive",
+        meta: {
+          title: "综测申请"
+        }
+      },
+      {
+        path: "scholarshipApply",
+        component: () => import("@/views/personCenter/info/index.vue"),
+        name: "ScholarshipApply",
+        meta: {
+          title: "奖学金申请"
+        }
+      }
+    ]
+  },
+  {
+    path: "/apply",
+    component: Layouts,
+    redirect: "/apply/comprehen",
+    name: "Apply",
+    meta: {
+      title: "申报管理",
+      elIcon: "Stamp",
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: "comprehen",
+        component: () => import("@/views/personCenter/info/index.vue"),
+        name: "Comprehen",
+        meta: {
+          title: "综测申报"
+        }
+      },
+      {
+        path: "scholarship",
+        component: () => import("@/views/personCenter/info/index.vue"),
+        name: "Scholarship",
+        meta: {
+          title: "奖学金申报"
+        }
+      }
+    ]
+  },
+  {
+    path: "/notice",
+    component: Layouts,
+    redirect: "/notice/info",
+    name: "Notice",
+    meta: {
+      title: "系统公告",
+      elIcon: "BellFilled",
+      alwaysShow: true
+    },
+    children: [
+      {
+        path: "info",
+        component: () => import("@/views/personCenter/info/index.vue"),
+        name: "NoticeInfo",
+        meta: {
+          title: "公告信息"
         }
       }
     ]
