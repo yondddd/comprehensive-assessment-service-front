@@ -363,7 +363,7 @@ export const constantRoutes: RouteRecordRaw[] = [
       },
       {
         path: "scholarshipApply",
-        component: () => import("@/views/personCenter/info/index.vue"),
+        component: () => import("@/views/score/scholarshipApply/index.vue"),
         name: "ScholarshipApply",
         meta: {
           title: "奖学金申请"

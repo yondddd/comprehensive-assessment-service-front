@@ -18,9 +18,11 @@ export interface GetCompreRequestData {
   pageNo: number
   /** 查询条数 */
   pageSize: number
+  projectName: string
 }
 
 export interface GetCompreData {
+  id: string
   name: string
   jobNumber: string
   type: string

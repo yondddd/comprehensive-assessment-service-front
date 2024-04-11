@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue"
-import { createCollegeDataApi, deleteCollegeDataApi, updateCollegeDataApi, getCollegeDataApi } from "@/api/college"
-import { GetCollegeData } from "@/api/college/types/college"
+import { createCompreDataApi, deleteCompreDataApi, updateCompreDataApi, getCompreDataApi } from "@/api/scoreCompre"
+import { GetCompreData } from "@/api/scoreCompre/types/scoreCompre"
 import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
 import { CirclePlus, Download, RefreshRight } from "@element-plus/icons-vue"
 import { usePagination } from "@/hooks/usePagination"
@@ -22,13 +22,13 @@ const formData = reactive({
   type: 1
 })
 const formRules: FormRules = reactive({
-  name: [{ required: true, trigger: "blur", message: "请输入学院名称" }]
+  name: [{ required: true, trigger: "blur", message: "请输入学生名称" }]
 })
 const handleCreate = () => {
   formRef.value?.validate((valid: boolean, fields) => {
     if (valid) {
       if (currentUpdateId.value === undefined) {
-        createCollegeDataApi(formData)
+        createCompreDataApi(formData)
           .then(() => {
             ElMessage.success("新增成功")
             GetCollegeDataFunction()
@@ -37,7 +37,7 @@ const handleCreate = () => {
             dialogVisible.value = false
           })
       } else {
-        updateCollegeDataApi({
+        updateCompreDataApi({
           id: currentUpdateId.value,
           name: formData.name
         })
@@ -61,42 +61,57 @@ const resetForm = () => {
 //#endregion
 
 //#region 删
-const handleDelete = (row: GetCollegeData) => {
-  ElMessageBox.confirm(`正在删除学院：${row.name}，确认删除？`, "提示", {
+const handleDelete = (row: GetCompreData) => {
+  ElMessageBox.confirm(`正在删除申请：${row.type}，确认删除？`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
   }).then(() => {
-    deleteCollegeDataApi(row.id).then(() => {
+    deleteCompreDataApi(row.id).then(() => {
       ElMessage.success("删除成功")
       GetCollegeDataFunction()
     })
   })
 }
+
+//#region 撤回
+const handlRrevoke = (row: GetCompreData) => {
+  ElMessageBox.confirm(`正在撤回申请：${row.name}，确认撤回？`, "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
+  }).then(() => {
+    deleteCompreDataApi(row.id).then(() => {
+      ElMessage.success("撤回成功")
+      GetCollegeDataFunction()
+    })
+  })
+}
+
 //#endregion
 
 //#region 改
 const currentUpdateId = ref<undefined | string>(undefined)
-const handleUpdate = (row: GetCollegeData) => {
-  currentUpdateId.value = row.id
-  formData.name = row.name
-  dialogVisible.value = true
-}
+// const handleUpdate = (row: GetCollegeData) => {
+//   currentUpdateId.value = row.id
+//   formData.name = row.name
+//   dialogVisible.value = true
+// }
 //#endregion
 
 //#region 查
 const tableData = ref<GetCollegeData[]>([])
 // const searchFormRef = ref<FormInstance | null>(null)
 const searchData = reactive({
-  name: ""
+  name: "",
+  projectName: ""
 })
 const GetCollegeDataFunction = () => {
   loading.value = true
-  getCollegeDataApi({
+  getCompreDataApi({
     pageNo: paginationData.currentPage,
     pageSize: paginationData.pageSize,
-    name: searchData.name || "",
-    type: 1
+    projectName: searchData.name || ""
   })
     .then((res) => {
       paginationData.total = res.total
@@ -161,14 +176,13 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
           <el-table-column prop="applyTime" label="申请时间" align="center" />
           <el-table-column prop="status" label="申请状态" align="center">
             <template #default="scope">
-              <el-tag v-if="scope.row.status" type="success" effect="plain">启用</el-tag>
-              <el-tag v-else type="danger" effect="plain">禁用</el-tag>
+              <el-tag v-if="scope.row.status" type="success" effect="plain">通过</el-tag>
+              <el-tag v-else type="danger" effect="plain">驳回</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="creationTime" label="申请时间" align="center" />
           <el-table-column fixed="right" label="操作" width="150" align="center">
             <template #default="scope">
-              <el-button type="primary" text bg size="small" @click="handleUpdate(scope.row)">撤回</el-button>
+              <el-button type="primary" text bg size="small" @click="handlRrevoke(scope.row)">撤回</el-button>
               <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">删除</el-button>
             </template>
           </el-table-column>
