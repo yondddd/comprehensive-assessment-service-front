@@ -60,7 +60,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         }
       }
     ]
-  },
+  }
   // {
   //   path: "/unocss",
   //   component: Layouts,
@@ -248,6 +248,239 @@ export const constantRoutes: RouteRecordRaw[] = [
   //     }
   //   ]
   // },
+  // {
+  //   path: "/college",
+  //   component: Layouts,
+  //   redirect: "/college/info",
+  //   name: "college",
+  //   meta: {
+  //     title: "学院管理",
+  //     elIcon: "Grid",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "info",
+  //       component: () => import("@/views/college/info/index.vue"),
+  //       name: "collegeInfo",
+  //       meta: {
+  //         title: "学院信息"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/class",
+  //   component: Layouts,
+  //   redirect: "/class/info",
+  //   name: "class",
+  //   meta: {
+  //     title: "班级管理",
+  //     elIcon: "Grid",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "info",
+  //       component: () => import("@/views/clazz/info/index.vue"),
+  //       name: "classInfo",
+  //       meta: {
+  //         title: "班级信息"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/user",
+  //   component: Layouts,
+  //   redirect: "/user/student",
+  //   name: "Student",
+  //   meta: {
+  //     title: "用户管理",
+  //     elIcon: "User"
+  //   },
+  //   children: [
+  //     {
+  //       path: "student",
+  //       component: () => import("@/views/user/student/info/index.vue"),
+  //       name: "Student",
+  //       meta: {
+  //         title: "学生管理",
+  //         keepAlive: true
+  //       }
+  //     },
+  //     {
+  //       path: "counsellor",
+  //       component: () => import("@/views/user/counsellor/info/index.vue"),
+  //       name: "Counsellor",
+  //       meta: {
+  //         title: "辅导员管理",
+  //         keepAlive: true
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/check",
+  //   component: Layouts,
+  //   redirect: "/check/studentScore",
+  //   name: "check",
+  //   meta: {
+  //     title: "综合成绩",
+  //     elIcon: "Reading",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "studentScore",
+  //       component: () => import("@/views/check/studentScore/index.vue"),
+  //       name: "StudentScore",
+  //       meta: {
+  //         title: "学生成绩"
+  //       }
+  //     }
+  //   ]
+  // }
+
+  // {
+  //   path: "/score",
+  //   component: Layouts,
+  //   redirect: "/score/comprehensive",
+  //   name: "Score",
+  //   meta: {
+  //     title: "加分申请",
+  //     elIcon: "List",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "comprehensive",
+  //       component: () => import("@/views/score/comprehensive/index.vue"),
+  //       name: "Comprehensive",
+  //       meta: {
+  //         title: "综测申请"
+  //       }
+  //     },
+  //     {
+  //       path: "scholarshipApply",
+  //       component: () => import("@/views/score/scholarshipApply/index.vue"),
+  //       name: "ScholarshipApply",
+  //       meta: {
+  //         title: "奖学金申请"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/apply",
+  //   component: Layouts,
+  //   redirect: "/apply/comprehen",
+  //   name: "Apply",
+  //   meta: {
+  //     title: "申报管理",
+  //     elIcon: "Stamp",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "comprehen",
+  //       component: () => import("@/views/personCenter/info/index.vue"),
+  //       name: "Comprehen",
+  //       meta: {
+  //         title: "综测申报"
+  //       }
+  //     },
+  //     {
+  //       path: "scholarship",
+  //       component: () => import("@/views/personCenter/info/index.vue"),
+  //       name: "Scholarship",
+  //       meta: {
+  //         title: "奖学金申报"
+  //       }
+  //     }
+  //   ]
+  // }
+  // {
+  //   path: "/notice",
+  //   component: Layouts,
+  //   redirect: "/notice/info",
+  //   name: "Notice",
+  //   meta: {
+  //     title: "系统公告",
+  //     elIcon: "BellFilled",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "info",
+  //       component: () => import("@/views/personCenter/info/index.vue"),
+  //       name: "NoticeInfo",
+  //       meta: {
+  //         title: "公告信息"
+  //       }
+  //     }
+  //   ]
+  // }
+  // {
+  //   path: "/person-center",
+  //   component: Layouts,
+  //   redirect: "/person-center/info",
+  //   name: "PersonCenter",
+  //   meta: {
+  //     title: "个人中心",
+  //     elIcon: "Setting",
+  //     alwaysShow: true
+  //   },
+  //   children: [
+  //     {
+  //       path: "info",
+  //       component: () => import("@/views/personCenter/info/index.vue"),
+  //       name: "PersonInfo",
+  //       meta: {
+  //         title: "个人信息"
+  //       }
+  //     }
+  //   ]
+  // }
+]
+
+/**
+ * 动态路由
+ * 用来放置有权限 (Roles 属性) 的路由
+ * 必须带有 Name 属性
+ */
+export const asyncRoutes: RouteRecordRaw[] = [
+  // {
+  //   path: "/permission",
+  //   component: Layouts,
+  //   redirect: "/permission/page",
+  //   name: "Permission",
+  //   meta: {
+  //     title: "权限管理",
+  //     svgIcon: "lock",
+  //     roles: ["admin", "editor"], // 可以在根路由中设置角色
+  //     alwaysShow: true // 将始终显示根菜单
+  //   },
+  //   children: [
+  //     {
+  //       path: "page",
+  //       component: () => import("@/views/permission/page.vue"),
+  //       name: "PagePermission",
+  //       meta: {
+  //         title: "页面权限",
+  //         roles: ["admin"] // 或者在子导航中设置角色
+  //       }
+  //     },
+  //     {
+  //       path: "directive",
+  //       component: () => import("@/views/permission/directive.vue"),
+  //       name: "DirectivePermission",
+  //       meta: {
+  //         title: "指令权限" // 如果未设置角色，则表示：该页面不需要权限，但会继承根路由的角色
+  //       }
+  //     }
+  //   ]
+  // },
   {
     path: "/college",
     component: Layouts,
@@ -256,7 +489,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       title: "学院管理",
       elIcon: "Grid",
-      alwaysShow: true
+      alwaysShow: true,
+      roles: ["ADMIN"]
     },
     children: [
       {
@@ -277,7 +511,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       title: "班级管理",
       elIcon: "Grid",
-      alwaysShow: true
+      alwaysShow: true,
+      roles: ["ADMIN", "COUNSELLOR"]
     },
     children: [
       {
@@ -297,7 +532,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     name: "Student",
     meta: {
       title: "用户管理",
-      elIcon: "User"
+      elIcon: "User",
+      roles: ["ADMIN"]
     },
     children: [
       {
@@ -321,28 +557,6 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/check",
-    component: Layouts,
-    redirect: "/check/studentScore",
-    name: "check",
-    meta: {
-      title: "综合成绩",
-      elIcon: "Reading",
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: "studentScore",
-        component: () => import("@/views/check/studentScore/index.vue"),
-        name: "StudentScore",
-        meta: {
-          title: "学生成绩"
-        }
-      }
-    ]
-  },
-
-  {
     path: "/score",
     component: Layouts,
     redirect: "/score/comprehensive",
@@ -350,7 +564,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       title: "加分申请",
       elIcon: "List",
-      alwaysShow: true
+      alwaysShow: true,
+      roles: ["STUDENT"]
     },
     children: [
       {
@@ -358,7 +573,8 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/score/comprehensive/index.vue"),
         name: "Comprehensive",
         meta: {
-          title: "综测申请"
+          title: "综测申请",
+          roles: ["STUDENT"]
         }
       },
       {
@@ -366,7 +582,8 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/score/scholarshipApply/index.vue"),
         name: "ScholarshipApply",
         meta: {
-          title: "奖学金申请"
+          title: "奖学金申请",
+          roles: ["STUDENT"]
         }
       }
     ]
@@ -379,7 +596,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       title: "申报管理",
       elIcon: "Stamp",
-      alwaysShow: true
+      alwaysShow: true,
+      roles: ["ADMIN", "COUNSELLOR"]
     },
     children: [
       {
@@ -401,6 +619,28 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/check",
+    component: Layouts,
+    redirect: "/check/studentScore",
+    name: "check",
+    meta: {
+      title: "综合成绩",
+      elIcon: "Reading",
+      alwaysShow: true,
+      roles: ["ADMIN", "COUNSELLOR", "STUDENT"]
+    },
+    children: [
+      {
+        path: "studentScore",
+        component: () => import("@/views/check/studentScore/index.vue"),
+        name: "StudentScore",
+        meta: {
+          title: "学生成绩"
+        }
+      }
+    ]
+  },
+  {
     path: "/notice",
     component: Layouts,
     redirect: "/notice/info",
@@ -408,7 +648,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       title: "系统公告",
       elIcon: "BellFilled",
-      alwaysShow: true
+      alwaysShow: true,
+      roles: ["ADMIN"]
     },
     children: [
       {
@@ -429,7 +670,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       title: "个人中心",
       elIcon: "Setting",
-      alwaysShow: true
+      alwaysShow: true,
+      roles: ["STUDENT", "ADMIN", "COUNSELLOR"]
     },
     children: [
       {
@@ -438,45 +680,6 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "PersonInfo",
         meta: {
           title: "个人信息"
-        }
-      }
-    ]
-  }
-]
-
-/**
- * 动态路由
- * 用来放置有权限 (Roles 属性) 的路由
- * 必须带有 Name 属性
- */
-export const asyncRoutes: RouteRecordRaw[] = [
-  {
-    path: "/permission",
-    component: Layouts,
-    redirect: "/permission/page",
-    name: "Permission",
-    meta: {
-      title: "权限管理",
-      svgIcon: "lock",
-      roles: ["admin", "editor"], // 可以在根路由中设置角色
-      alwaysShow: true // 将始终显示根菜单
-    },
-    children: [
-      {
-        path: "page",
-        component: () => import("@/views/permission/page.vue"),
-        name: "PagePermission",
-        meta: {
-          title: "页面权限",
-          roles: ["admin"] // 或者在子导航中设置角色
-        }
-      },
-      {
-        path: "directive",
-        component: () => import("@/views/permission/directive.vue"),
-        name: "DirectivePermission",
-        meta: {
-          title: "指令权限" // 如果未设置角色，则表示：该页面不需要权限，但会继承根路由的角色
         }
       }
     ]
