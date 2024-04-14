@@ -46,4 +46,9 @@ export interface projectType {
   name: string
 }
 
+export interface scholarType {
+  id: string
+  name: string
+}
+
 export type GetCompreResponseData = ApiPageResponseData<GetCompreData[]>

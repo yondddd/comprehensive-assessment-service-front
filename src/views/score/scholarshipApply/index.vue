@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue"
 import { createCompreDataApi, deleteCompreDataApi, updateCompreDataApi, getCompreDataApi } from "@/api/scoreCompre"
-import { GetCompreData } from "@/api/scoreCompre/types/scoreCompre"
+import { GetCompreData, scholarType } from "@/api/scoreCompre/types/scoreCompre"
 import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
 import { CirclePlus, Download, RefreshRight } from "@element-plus/icons-vue"
 import { usePagination } from "@/hooks/usePagination"
@@ -13,6 +13,11 @@ defineOptions({
 
 const loading = ref<boolean>(false)
 const { paginationData, handleCurrentChange, handleSizeChange } = usePagination()
+const statusData = ref<scholarType[]>([
+  { id: "1", name: "红棉奖学金（学业优秀 ）" },
+  { id: "2", name: "蒲公英奖学金（学术科技创新创业）" },
+  { id: "3", name: "风藤奖学金" }
+])
 
 //#region 增
 const dialogVisible = ref<boolean>(false)
@@ -22,7 +27,12 @@ const formData = reactive({
   type: 1
 })
 const formRules: FormRules = reactive({
-  name: [{ required: true, trigger: "blur", message: "请输入学生名称" }]
+  name: [{ required: true, trigger: "blur", message: "请输入学生名称" }],
+  jobNumber: [{ required: true, trigger: "blur", message: "请输入学号" }],
+  type: [{ required: true, trigger: "blur", message: "请输入奖学金类型" }],
+  level: [{ required: true, trigger: "blur", message: "请输入获奖级别" }],
+  num: [{ required: true, trigger: "blur", message: "请输入获奖名次" }],
+  score: [{ required: true, trigger: "blur", message: "请输入申请金额" }]
 })
 const handleCreate = () => {
   formRef.value?.validate((valid: boolean, fields) => {
@@ -205,13 +215,31 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
     <!-- 新增/修改 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="currentUpdateId === undefined ? '新增学院' : '修改学院'"
+      :title="currentUpdateId === undefined ? '奖学金申请' : '修改学院'"
       @close="resetForm"
       width="30%"
     >
       <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" label-position="left">
-        <el-form-item prop="name" label="学院名称">
+        <el-form-item prop="name" label="申请人">
           <el-input v-model="formData.name" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item prop="jobNumber" label="学号">
+          <el-input v-model="formData.jobNumber" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item prop="type" label="奖学金类型">
+          <el-select v-model="searchData.type" placeholder="请选择奖学金类型">
+            <!-- 下拉选项 -->
+            <el-option v-for="status in statusData" :key="status.id" :label="status.name" :value="status.id" />
+          </el-select>
+        </el-form-item>
+        <el-form-item prop="level" label="获奖级别">
+          <el-input v-model="formData.level" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item prop="num" label="获奖名次">
+          <el-input v-model="formData.num" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item prop="score" label="申请金额">
+          <el-input v-model="formData.score" placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
