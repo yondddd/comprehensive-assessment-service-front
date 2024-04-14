@@ -602,7 +602,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: "comprehen",
-        component: () => import("@/views/personCenter/info/index.vue"),
+        component: () => import("@/views/apply/compre/index.vue"),
         name: "Comprehen",
         meta: {
           title: "综测申报"
@@ -610,7 +610,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
       },
       {
         path: "scholarship",
-        component: () => import("@/views/personCenter/info/index.vue"),
+        component: () => import("@/views/apply/scholar/index.vue"),
         name: "Scholarship",
         meta: {
           title: "奖学金申报"
@@ -654,7 +654,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: "info",
-        component: () => import("@/views/personCenter/info/index.vue"),
+        component: () => import("@/views/notice/info/index.vue"),
         name: "NoticeInfo",
         meta: {
           title: "公告信息"

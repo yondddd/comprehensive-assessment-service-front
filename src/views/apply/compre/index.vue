@@ -3,12 +3,12 @@ import { reactive, ref, watch } from "vue"
 import { createCompreDataApi, deleteCompreDataApi, updateCompreDataApi, getCompreDataApi } from "@/api/scoreCompre"
 import { GetCompreData } from "@/api/scoreCompre/types/scoreCompre"
 import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
-import { CirclePlus, Download, RefreshRight } from "@element-plus/icons-vue"
+import { Download, RefreshRight } from "@element-plus/icons-vue"
 import { usePagination } from "@/hooks/usePagination"
 
 defineOptions({
   // 命名当前组件
-  name: "scholarship"
+  name: "compre"
 })
 
 const loading = ref<boolean>(false)
@@ -62,13 +62,13 @@ const resetForm = () => {
 
 //#region 删
 const handleDelete = (row: GetCompreData) => {
-  ElMessageBox.confirm(`正在删除申请：${row.type}，确认删除？`, "提示", {
+  ElMessageBox.confirm(`正在驳回申请：${row.type}，确认驳回？`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
   }).then(() => {
     deleteCompreDataApi(row.id).then(() => {
-      ElMessage.success("删除成功")
+      ElMessage.success("驳回成功")
       GetCollegeDataFunction()
     })
   })
@@ -76,13 +76,13 @@ const handleDelete = (row: GetCompreData) => {
 
 //#region 撤回
 const handlRrevoke = (row: GetCompreData) => {
-  ElMessageBox.confirm(`正在撤回申请：${row.name}，确认撤回？`, "提示", {
+  ElMessageBox.confirm(`正在通过申请：${row.name}，确认通过？`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
   }).then(() => {
     deleteCompreDataApi(row.id).then(() => {
-      ElMessage.success("撤回成功")
+      ElMessage.success("通过成功")
       GetCollegeDataFunction()
     })
   })
@@ -112,7 +112,7 @@ const GetCollegeDataFunction = () => {
     pageNo: paginationData.currentPage,
     pageSize: paginationData.pageSize,
     projectName: searchData.name || "",
-    type: 1
+    org: true
   })
     .then((res) => {
       paginationData.total = res.total
@@ -151,10 +151,11 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
         </el-form-item>
       </el-form> -->
     <!-- </el-card> -->
+
     <el-card v-loading="loading" shadow="never">
       <div class="toolbar-wrapper">
         <div>
-          <el-button type="primary" :icon="CirclePlus" @click="dialogVisible = true">申报</el-button>
+          <!-- <el-button type="primary" :icon="CirclePlus" @click="dialogVisible = true">申报</el-button> -->
           <!-- <el-button type="danger" :icon="Delete">批量删除</el-button> -->
         </div>
         <div>
@@ -169,10 +170,12 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
       <div class="table-wrapper">
         <el-table :data="tableData">
           <el-table-column type="selection" width="50" align="center" />
+          <el-table-column prop="college" label="学院" align="center" />
+          <el-table-column prop="clazz" label="班级" align="center" />
           <el-table-column prop="name" label="申请人" align="center" />
           <el-table-column prop="jobNumber" label="学号" align="center" />
-          <el-table-column prop="type" label="奖学金类型" align="center" />
-          <el-table-column prop="score" label="金额" align="center" />
+          <el-table-column prop="type" label="项目类型" align="center" />
+          <el-table-column prop="score" label="申请分数" align="center" />
           <el-table-column prop="material" label="申请材料" align="center" />
           <el-table-column prop="applyTime" label="申请时间" align="center" />
           <el-table-column prop="status" label="申请状态" align="center">
@@ -183,8 +186,8 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="150" align="center">
             <template #default="scope">
-              <el-button type="primary" text bg size="small" @click="handlRrevoke(scope.row)">撤回</el-button>
-              <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">删除</el-button>
+              <el-button type="primary" text bg size="small" @click="handlRrevoke(scope.row)">通过</el-button>
+              <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">驳回</el-button>
             </template>
           </el-table-column>
         </el-table>

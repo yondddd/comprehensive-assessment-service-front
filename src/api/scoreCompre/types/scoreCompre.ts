@@ -19,6 +19,8 @@ export interface GetCompreRequestData {
   /** 查询条数 */
   pageSize: number
   projectName: string
+  type: number
+  org: boolean
 }
 
 export interface GetCompreData {
@@ -30,9 +32,16 @@ export interface GetCompreData {
   material: string
   applyTime: string
   status: number
+  college: string
+  clazz: string
 }
 
 export interface StatusData {
+  id: string
+  name: string
+}
+
+export interface projectType {
   id: string
   name: string
 }

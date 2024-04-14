@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue"
-import { createCompreDataApi, deleteCompreDataApi, updateCompreDataApi, getCompreDataApi } from "@/api/scoreCompre"
-import { GetCompreData } from "@/api/scoreCompre/types/scoreCompre"
+import { createNoticeDataApi, deleteNoticeDataApi, updateNoticeDataApi, getNoticeDataApi } from "@/api/notice"
+import { GetNoticeData } from "@/api/notice/types/notice"
 import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
-import { CirclePlus, Download, RefreshRight } from "@element-plus/icons-vue"
+import { Search, Refresh, CirclePlus, Delete, Download, RefreshRight } from "@element-plus/icons-vue"
 import { usePagination } from "@/hooks/usePagination"
 
 defineOptions({
   // 命名当前组件
-  name: "scholarship"
+  name: "notice"
 })
 
 const loading = ref<boolean>(false)
@@ -19,16 +19,17 @@ const dialogVisible = ref<boolean>(false)
 const formRef = ref<FormInstance | null>(null)
 const formData = reactive({
   name: "",
-  type: 1
+  title: "",
+  content: ""
 })
 const formRules: FormRules = reactive({
-  name: [{ required: true, trigger: "blur", message: "请输入学生名称" }]
+  name: [{ required: true, trigger: "blur", message: "请输入学院名称" }]
 })
 const handleCreate = () => {
   formRef.value?.validate((valid: boolean, fields) => {
     if (valid) {
       if (currentUpdateId.value === undefined) {
-        createCompreDataApi(formData)
+        createNoticeDataApi(formData)
           .then(() => {
             ElMessage.success("新增成功")
             GetCollegeDataFunction()
@@ -37,7 +38,7 @@ const handleCreate = () => {
             dialogVisible.value = false
           })
       } else {
-        updateCompreDataApi({
+        updateNoticeDataApi({
           id: currentUpdateId.value,
           name: formData.name
         })
@@ -61,58 +62,41 @@ const resetForm = () => {
 //#endregion
 
 //#region 删
-const handleDelete = (row: GetCompreData) => {
-  ElMessageBox.confirm(`正在删除申请：${row.type}，确认删除？`, "提示", {
+const handleDelete = (row: GetNoticeData) => {
+  ElMessageBox.confirm(`正在删除通知：${row.name}，确认删除？`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
   }).then(() => {
-    deleteCompreDataApi(row.id).then(() => {
+    deleteNoticeDataApi(row.id).then(() => {
       ElMessage.success("删除成功")
       GetCollegeDataFunction()
     })
   })
 }
-
-//#region 撤回
-const handlRrevoke = (row: GetCompreData) => {
-  ElMessageBox.confirm(`正在撤回申请：${row.name}，确认撤回？`, "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning"
-  }).then(() => {
-    deleteCompreDataApi(row.id).then(() => {
-      ElMessage.success("撤回成功")
-      GetCollegeDataFunction()
-    })
-  })
-}
-
 //#endregion
 
 //#region 改
 const currentUpdateId = ref<undefined | string>(undefined)
-// const handleUpdate = (row: GetCollegeData) => {
-//   currentUpdateId.value = row.id
-//   formData.name = row.name
-//   dialogVisible.value = true
-// }
+const handleUpdate = (row: GetNoticeData) => {
+  currentUpdateId.value = row.id
+  ;(formData.title = row.title), (formData.content = row.content), (dialogVisible.value = true)
+}
 //#endregion
 
 //#region 查
-const tableData = ref<GetCompreData[]>([])
-// const searchFormRef = ref<FormInstance | null>(null)
+const tableData = ref<GetNoticeData[]>([])
+const searchFormRef = ref<FormInstance | null>(null)
 const searchData = reactive({
   name: "",
-  projectName: ""
+  title: ""
 })
 const GetCollegeDataFunction = () => {
   loading.value = true
-  getCompreDataApi({
+  getNoticeDataApi({
     pageNo: paginationData.currentPage,
     pageSize: paginationData.pageSize,
-    projectName: searchData.name || "",
-    type: 1
+    title: searchData.title || ""
   })
     .then((res) => {
       paginationData.total = res.total
@@ -125,13 +109,13 @@ const GetCollegeDataFunction = () => {
       loading.value = false
     })
 }
-// const handleSearch = () => {
-//   paginationData.currentPage === 1 ? GetCollegeDataFunction() : (paginationData.currentPage = 1)
-// }
-// const resetSearch = () => {
-//   searchFormRef.value?.resetFields()
-//   handleSearch()
-// }
+const handleSearch = () => {
+  paginationData.currentPage === 1 ? GetCollegeDataFunction() : (paginationData.currentPage = 1)
+}
+const resetSearch = () => {
+  searchFormRef.value?.resetFields()
+  handleSearch()
+}
 //#endregion
 
 /** 监听分页参数的变化 */
@@ -140,22 +124,22 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
 
 <template>
   <div class="app-container">
-    <!-- <el-card v-loading="loading" shadow="never" class="search-wrapper">
+    <el-card v-loading="loading" shadow="never" class="search-wrapper">
       <el-form ref="searchFormRef" :inline="true" :model="searchData">
-        <el-form-item prop="name" label="学院">
-          <el-input v-model="searchData.name" placeholder="请输入学院名称" />
+        <el-form-item prop="name" label="标题">
+          <el-input v-model="searchData.title" placeholder="请输入标题名称" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" :icon="Search" @click="handleSearch">查询</el-button>
           <el-button :icon="Refresh" @click="resetSearch">重置</el-button>
         </el-form-item>
-      </el-form> -->
-    <!-- </el-card> -->
+      </el-form>
+    </el-card>
     <el-card v-loading="loading" shadow="never">
       <div class="toolbar-wrapper">
         <div>
-          <el-button type="primary" :icon="CirclePlus" @click="dialogVisible = true">申报</el-button>
-          <!-- <el-button type="danger" :icon="Delete">批量删除</el-button> -->
+          <el-button type="primary" :icon="CirclePlus" @click="dialogVisible = true">发布公告</el-button>
+          <el-button type="danger" :icon="Delete">批量删除</el-button>
         </div>
         <div>
           <el-tooltip content="下载">
@@ -169,21 +153,18 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
       <div class="table-wrapper">
         <el-table :data="tableData">
           <el-table-column type="selection" width="50" align="center" />
-          <el-table-column prop="name" label="申请人" align="center" />
-          <el-table-column prop="jobNumber" label="学号" align="center" />
-          <el-table-column prop="type" label="奖学金类型" align="center" />
-          <el-table-column prop="score" label="金额" align="center" />
-          <el-table-column prop="material" label="申请材料" align="center" />
-          <el-table-column prop="applyTime" label="申请时间" align="center" />
-          <el-table-column prop="status" label="申请状态" align="center">
+          <el-table-column prop="title" label="标题" align="center" />
+          <el-table-column prop="content" label="内容" align="center" />
+          <el-table-column prop="status" label="状态" align="center">
             <template #default="scope">
-              <el-tag v-if="scope.row.status" type="success" effect="plain">通过</el-tag>
-              <el-tag v-else type="danger" effect="plain">驳回</el-tag>
+              <el-tag v-if="scope.row.status" type="success" effect="plain">启用</el-tag>
+              <el-tag v-else type="danger" effect="plain">禁用</el-tag>
             </template>
           </el-table-column>
+          <el-table-column prop="creationTime" label="创建时间" align="center" />
           <el-table-column fixed="right" label="操作" width="150" align="center">
             <template #default="scope">
-              <el-button type="primary" text bg size="small" @click="handlRrevoke(scope.row)">撤回</el-button>
+              <el-button type="primary" text bg size="small" @click="handleUpdate(scope.row)">修改</el-button>
               <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">删除</el-button>
             </template>
           </el-table-column>
@@ -205,13 +186,16 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
     <!-- 新增/修改 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="currentUpdateId === undefined ? '新增学院' : '修改学院'"
+      :title="currentUpdateId === undefined ? '发布公告' : '修改公告'"
       @close="resetForm"
       width="30%"
     >
       <el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" label-position="left">
-        <el-form-item prop="name" label="学院名称">
-          <el-input v-model="formData.name" placeholder="请输入" />
+        <el-form-item prop="title" label="标题">
+          <el-input v-model="formData.title" placeholder="请输入" />
+        </el-form-item>
+        <el-form-item prop="content" label="内容">
+          <el-input v-model="formData.content" placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
