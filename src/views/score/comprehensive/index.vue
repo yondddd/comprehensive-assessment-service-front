@@ -182,7 +182,7 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
           <el-table-column prop="jobNumber" label="学号" align="center" />
           <el-table-column prop="type" label="项目类型" align="center" />
           <el-table-column prop="score" label="申请分数" align="center" />
-          <el-table-column prop="material" label="申请材料" align="center" />
+          <!-- <el-table-column prop="material" label="申请材料" align="center" /> -->
           <el-table-column prop="applyTime" label="申请时间" align="center" />
           <el-table-column prop="status" label="申请状态" align="center">
             <template #default="scope">
