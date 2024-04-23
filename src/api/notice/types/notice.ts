@@ -1,11 +1,14 @@
 export interface CreateNoticeRequestData {
   name: string
-  type: number
+  title: string
+  content: string
 }
 
 export interface UpdateNoticeRequestData {
   id: string
   name: string
+  title: string
+  content: string
 }
 
 export interface GetNoticeRequestData {
@@ -23,6 +26,10 @@ export interface GetNoticeData {
   content: string
   creationTime: string
   status: number
+}
+
+export interface DelNoticeRequestData {
+  id: string
 }
 
 export type GetNoticeResponseData = ApiPageResponseData<GetNoticeData[]>

@@ -4,25 +4,26 @@ import type * as notice from "./types/notice"
 /** 增 */
 export function createNoticeDataApi(data: notice.CreateNoticeRequestData) {
   return request({
-    url: "dept",
+    url: "notice/save",
     method: "post",
     data
   })
 }
 
 /** 删 */
-export function deleteNoticeDataApi(id: string) {
+export function deleteNoticeDataApi(data: notice.DelNoticeRequestData) {
   return request({
-    url: `college/${id}`,
-    method: "delete"
+    url: "notice/del",
+    method: "post",
+    data
   })
 }
 
 /** 改 */
 export function updateNoticeDataApi(data: notice.UpdateNoticeRequestData) {
   return request({
-    url: "college",
-    method: "put",
+    url: "notice/save",
+    method: "post",
     data
   })
 }

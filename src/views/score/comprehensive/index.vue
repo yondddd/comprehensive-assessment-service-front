@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue"
-import { createCompreDataApi, deleteCompreDataApi, updateCompreDataApi, getCompreDataApi } from "@/api/scoreCompre"
-import { GetCompreData, projectType } from "@/api/scoreCompre/types/scoreCompre"
-import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
+import { createCompreDataApi, updateCompreDataApi, getCompreDataApi } from "@/api/scoreCompre"
+import { projectType } from "@/api/scoreCompre/types/scoreCompre"
+import { type FormInstance, type FormRules, ElMessage } from "element-plus"
 import { CirclePlus, Download, RefreshRight } from "@element-plus/icons-vue"
 import { usePagination } from "@/hooks/usePagination"
 
@@ -23,7 +23,11 @@ const dialogVisible = ref<boolean>(false)
 const formRef = ref<FormInstance | null>(null)
 const formData = reactive({
   name: "",
-  type: 1
+  type: "",
+  projectName: "",
+  level: "",
+  num: "",
+  score: ""
 })
 const formRules: FormRules = reactive({
   name: [{ required: true, trigger: "blur", message: "请输入姓名" }],
@@ -38,9 +42,15 @@ const handleCreate = () => {
   formRef.value?.validate((valid: boolean, fields) => {
     if (valid) {
       if (currentUpdateId.value === undefined) {
-        createCompreDataApi(formData)
+        createCompreDataApi({
+          projectType: formData.type,
+          projectName: formData.projectName,
+          prizeLevel: formData.level,
+          prizeRanking: formData.num,
+          applyScore: formData.score
+        })
           .then(() => {
-            ElMessage.success("新增成功")
+            ElMessage.success("申请成功")
             GetCollegeDataFunction()
           })
           .finally(() => {
@@ -71,32 +81,32 @@ const resetForm = () => {
 //#endregion
 
 //#region 删
-const handleDelete = (row: GetCompreData) => {
-  ElMessageBox.confirm(`正在删除申请：${row.type}，确认删除？`, "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning"
-  }).then(() => {
-    deleteCompreDataApi(row.id).then(() => {
-      ElMessage.success("删除成功")
-      GetCollegeDataFunction()
-    })
-  })
-}
+// const handleDelete = (row: GetCompreData) => {
+//   ElMessageBox.confirm(`正在删除申请：${row.type}，确认删除？`, "提示", {
+//     confirmButtonText: "确定",
+//     cancelButtonText: "取消",
+//     type: "warning"
+//   }).then(() => {
+//     deleteCompreDataApi(row.id).then(() => {
+//       ElMessage.success("删除成功")
+//       GetCollegeDataFunction()
+//     })
+//   })
+// }
 
-//#region 撤回
-const handlRrevoke = (row: GetCompreData) => {
-  ElMessageBox.confirm(`正在撤回申请：${row.name}，确认撤回？`, "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning"
-  }).then(() => {
-    deleteCompreDataApi(row.id).then(() => {
-      ElMessage.success("撤回成功")
-      GetCollegeDataFunction()
-    })
-  })
-}
+// //#region 撤回
+// const handlRrevoke = (row: GetCompreData) => {
+//   ElMessageBox.confirm(`正在撤回申请：${row.name}，确认撤回？`, "提示", {
+//     confirmButtonText: "确定",
+//     cancelButtonText: "取消",
+//     type: "warning"
+//   }).then(() => {
+//     deleteCompreDataApi(row.id).then(() => {
+//       ElMessage.success("撤回成功")
+//       GetCollegeDataFunction()
+//     })
+//   })
+// }
 
 //#endregion
 
@@ -183,19 +193,20 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
           <el-table-column prop="type" label="项目类型" align="center" />
           <el-table-column prop="score" label="申请分数" align="center" />
           <!-- <el-table-column prop="material" label="申请材料" align="center" /> -->
-          <el-table-column prop="applyTime" label="申请时间" align="center" />
           <el-table-column prop="status" label="申请状态" align="center">
             <template #default="scope">
-              <el-tag v-if="scope.row.status" type="success" effect="plain">通过</el-tag>
-              <el-tag v-else type="danger" effect="plain">驳回</el-tag>
+              <el-tag v-if="scope.row.status == 1" type="success" effect="plain">通过</el-tag>
+              <el-tag v-if="scope.row.status == 2" type="warning" effect="plain">审核中</el-tag>
+              <el-tag v-if="scope.row.status == 0" type="danger" effect="plain">驳回</el-tag>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="150" align="center">
+          <el-table-column prop="applyTime" label="申请时间" align="center" />
+          <!-- <el-table-column fixed="right" label="操作" width="150" align="center">
             <template #default="scope">
               <el-button type="primary" text bg size="small" @click="handlRrevoke(scope.row)">撤回</el-button>
               <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">删除</el-button>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </div>
       <div class="pager-wrapper">
@@ -226,7 +237,7 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
           <el-input v-model="formData.jobNumber" placeholder="请输入" />
         </el-form-item>
         <el-form-item prop="type" label="项目类型">
-          <el-select v-model="searchData.type" placeholder="请选择项目类型">
+          <el-select v-model="formData.type" placeholder="请选择项目类型">
             <!-- 下拉选项 -->
             <el-option v-for="status in statusData" :key="status.id" :label="status.name" :value="status.id" />
           </el-select>

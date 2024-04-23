@@ -67,7 +67,11 @@ const handleDelete = (row: GetCompreData) => {
     cancelButtonText: "取消",
     type: "warning"
   }).then(() => {
-    deleteCompreDataApi(row.id).then(() => {
+    deleteCompreDataApi({
+      id: row.id,
+      status: 0,
+      compre: true
+    }).then(() => {
       ElMessage.success("驳回成功")
       GetCollegeDataFunction()
     })
@@ -81,7 +85,11 @@ const handlRrevoke = (row: GetCompreData) => {
     cancelButtonText: "取消",
     type: "warning"
   }).then(() => {
-    deleteCompreDataApi(row.id).then(() => {
+    deleteCompreDataApi({
+      id: row.id,
+      status: 1,
+      compre: true
+    }).then(() => {
       ElMessage.success("通过成功")
       GetCollegeDataFunction()
     })
@@ -180,14 +188,31 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
           <el-table-column prop="applyTime" label="申请时间" align="center" />
           <el-table-column prop="status" label="申请状态" align="center">
             <template #default="scope">
-              <el-tag v-if="scope.row.status" type="success" effect="plain">通过</el-tag>
-              <el-tag v-else type="danger" effect="plain">驳回</el-tag>
+              <el-tag v-if="scope.row.status == 1" type="success" effect="plain">通过</el-tag>
+              <el-tag v-if="scope.row.status == 2" type="warning" effect="plain">审核中</el-tag>
+              <el-tag v-if="scope.row.status == 0" type="danger" effect="plain">驳回</el-tag>
             </template>
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="150" align="center">
             <template #default="scope">
-              <el-button type="primary" text bg size="small" @click="handlRrevoke(scope.row)">通过</el-button>
-              <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">驳回</el-button>
+              <el-button
+                v-if="scope.row.status === 2"
+                type="primary"
+                text
+                bg
+                size="small"
+                @click="handlRrevoke(scope.row)"
+                >通过</el-button
+              >
+              <el-button
+                v-if="scope.row.status === 2"
+                type="danger"
+                text
+                bg
+                size="small"
+                @click="handleDelete(scope.row)"
+                >驳回</el-button
+              >
             </template>
           </el-table-column>
         </el-table>

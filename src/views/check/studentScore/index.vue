@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue"
-import { createCheckDataApi, deleteCheckDataApi, updateCheckDataApi, getCheckDataApi } from "@/api/check"
+import { createCheckDataApi, updateCheckDataApi, getCheckDataApi } from "@/api/check"
 import { GetCheckData } from "@/api/check/types/check"
-import { type FormInstance, type FormRules, ElMessage, ElMessageBox } from "element-plus"
+import { type FormInstance, type FormRules, ElMessage } from "element-plus"
 import { Search, Refresh, Download, RefreshRight } from "@element-plus/icons-vue"
 import { usePagination } from "@/hooks/usePagination"
 
@@ -60,28 +60,28 @@ const resetForm = () => {
 }
 //#endregion
 
-//#region 删
-const handleDelete = (row: GetCheckData) => {
-  ElMessageBox.confirm(`正在删除学院：${row.name}，确认删除？`, "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning"
-  }).then(() => {
-    deleteCheckDataApi(row.id).then(() => {
-      ElMessage.success("删除成功")
-      GetCollegeDataFunction()
-    })
-  })
-}
+// //#region 删
+// const handleDelete = (row: GetCheckData) => {
+//   ElMessageBox.confirm(`正在删除学院：${row.name}，确认删除？`, "提示", {
+//     confirmButtonText: "确定",
+//     cancelButtonText: "取消",
+//     type: "warning"
+//   }).then(() => {
+//     deleteCheckDataApi(row.id).then(() => {
+//       ElMessage.success("删除成功")
+//       GetCollegeDataFunction()
+//     })
+//   })
+// }
 //#endregion
 
 //#region 改
 const currentUpdateId = ref<undefined | string>(undefined)
-const handleUpdate = (row: GetCheckData) => {
-  currentUpdateId.value = row.id
-  formData.name = row.name
-  dialogVisible.value = true
-}
+// const handleUpdate = (row: GetCheckData) => {
+//   currentUpdateId.value = row.id
+//   formData.name = row.name
+//   dialogVisible.value = true
+// }
 //#endregion
 
 //#region 查
@@ -166,12 +166,6 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], GetColl
           <el-table-column prop="secondClassScore" label="第二课堂分" align="center" />
           <el-table-column prop="totalScore" label="综测总分" align="center" />
           <el-table-column prop="totalRanking" label="综测总排行" align="center" />
-          <el-table-column fixed="right" label="操作" width="150" align="center">
-            <template #default="scope">
-              <el-button type="primary" text bg size="small" @click="handleUpdate(scope.row)">修改</el-button>
-              <el-button type="danger" text bg size="small" @click="handleDelete(scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
         </el-table>
       </div>
       <div class="pager-wrapper">

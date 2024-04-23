@@ -40,7 +40,9 @@ const handleCreate = () => {
       } else {
         updateNoticeDataApi({
           id: currentUpdateId.value,
-          name: formData.name
+          name: formData.name,
+          title: formData.title,
+          content: formData.content
         })
           .then(() => {
             ElMessage.success("修改成功")
@@ -63,12 +65,14 @@ const resetForm = () => {
 
 //#region 删
 const handleDelete = (row: GetNoticeData) => {
-  ElMessageBox.confirm(`正在删除通知：${row.name}，确认删除？`, "提示", {
+  ElMessageBox.confirm(`正在删除通知：${row.title}，确认删除？`, "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     type: "warning"
   }).then(() => {
-    deleteNoticeDataApi(row.id).then(() => {
+    deleteNoticeDataApi({
+      id: row.id
+    }).then(() => {
       ElMessage.success("删除成功")
       GetCollegeDataFunction()
     })

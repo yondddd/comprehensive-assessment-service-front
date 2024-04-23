@@ -1,11 +1,12 @@
 export interface CreateCompreRequestData {
-  name: string
-  jobNumber: string
-  type: number
+  grade: string
+  projectType: string
   projectName: string
-  level: number
-  ranking: number
-  score: number
+  prizeLevel: string
+  prizeRanking: string
+  applyScore: string
+  attachment: string
+  opinion: string
 }
 
 export interface UpdateCompreRequestData {
@@ -49,6 +50,17 @@ export interface projectType {
 export interface scholarType {
   id: string
   name: string
+}
+
+export interface DeleteCompreRequestData {
+  id: number
+  status: number
+  compre: boolean
+}
+
+export interface SaveScholarshipApplyRequestData {
+  scholarshipType: string
+  prize: string
 }
 
 export type GetCompreResponseData = ApiPageResponseData<GetCompreData[]>
